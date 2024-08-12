@@ -1,0 +1,98 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card p-3">
+        <h2 class="text-center text-info">@ViewData["Title"]</h2>
+        
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+          
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="mb-3">
+                <label asp-for="Input.FirstName">First Name</label>
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true"  />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.MiddleName">Middle Name</label>
+                <input asp-for="Input.MiddleName" class="form-control" autocomplete="firstname" aria-required="true" />
+                <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.LastName">Last Name</label> 
+                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class=" mb-3">
+                 <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.MobileNo">Mobile No</label>
+                <input asp-for="Input.MobileNo" class="form-control" autocomplete="mobileno" aria-required="true"  />
+                <span asp-validation-for="Input.MobileNo" class="text-danger"></span>
+            </div>
+            <div class=" mb-3">
+                 <label asp-for="Input.DateOfBirth">Date Of Birth</label>
+                <input id="Input_DateOfBirth" asp-for="Input.DateOfBirth" class="form-control" autocomplete="dateofbirth" aria-required="true" />
+                 <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class=" mb-3">
+                  <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class=" mb-3">
+                <label asp-for="Input.Role">Select Your Role</label>
+                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                    <option disabled selected>-Select Role-</option>
+                </select>
+                @* <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" /> *@
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="row">
+                    <div class="col-8">
+                        <a asp-page="./Login" class="text-decoration-none float-start mt-2" asp-route-returnUrl="@Model.ReturnUrl">Have an account?</a>
+                    </div>
+                    <div class="col-4">
+                        <button id="registerSubmit" type="submit" class="btn btn-primary btn-sm float-end">Register</button>
+                    </div>
+            </div>
+    
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dateOfBirthInput = document.getElementById('Input_DateOfBirth');
+
+            dateOfBirthInput.addEventListener('change', function () {
+                var selectedDate = new Date(this.value);
+                var today = new Date();
+                var minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+                if (selectedDate > minAgeDate) {
+                    this.setCustomValidity('You must be at least 18 years old.');
+                    this.reportValidity();
+                    this.value = ''; // Clear the invalid value
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+        });
+    </script>
+}

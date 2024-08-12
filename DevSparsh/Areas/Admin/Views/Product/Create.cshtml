@@ -1,0 +1,58 @@
+﻿@model Product
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card p-3">
+        <h2 class="text-center text-info">Create New Product</h2>
+        <section>
+            <form method="post" enctype="multipart/form-data">
+                <hr />
+                
+                <div class="mb-3">
+                    <label asp-for="Name"  class="form-label">Product Name</label>
+                    <input asp-for="Name" type="text" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label">Category</label>
+                    <input asp-for="Category"  type="text" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description"  class="form-label">Description</label>
+                    <textarea asp-for="Description" type="text" class="form-control" aria-required="true" ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <input asp-for="Price"  type="number" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                 <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Image</label>
+                    <input type="file" name="file" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>  
+
+                <div class="row">
+                    <div class="col-8">
+                        <a asp-controller="Product" asp-action="Index"  class="text-decoration-none float-start mt-2">Back to product list</a>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary float-end">Create</button>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
